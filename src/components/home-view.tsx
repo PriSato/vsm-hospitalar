@@ -4,7 +4,8 @@ import { useVSMStore } from '@/store/vsm-store'
 import { VSM_TEMPLATES } from '@/lib/templates'
 import { DEFAULT_SECTORS } from '@/lib/sectors'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
+import { TemplateCard } from '@/components/template-card'
 
 /** Ponto de partida: templates prontos, modo guiado ou mapas já existentes. Ver plano, seção 6.1. */
 export function HomeView({
@@ -19,10 +20,8 @@ export function HomeView({
   const deleteProject = useVSMStore((s) => s.deleteProject)
   const [sectorId, setSectorId] = useState(DEFAULT_SECTORS[0].id)
 
-  const startFromTemplate = (templateId: string) => {
-    const template = VSM_TEMPLATES.find((t) => t.id === templateId)
-    if (!template) return
-    const id = createProjectFromSteps(template.name, sectorId, template.steps)
+  const startFlow = (name: string, steps: string[]) => {
+    const id = createProjectFromSteps(name, sectorId, steps)
     onOpenProject(id)
   }
 
@@ -67,15 +66,7 @@ export function HomeView({
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {VSM_TEMPLATES.map((template) => (
-            <Card key={template.id} className="cursor-pointer hover:border-primary" onClick={() => startFromTemplate(template.id)}>
-              <CardHeader>
-                <CardTitle>{template.name}</CardTitle>
-                <CardDescription>{template.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-0 text-xs text-muted-foreground">
-                {template.steps.join(' → ')}
-              </CardContent>
-            </Card>
+            <TemplateCard key={template.id} template={template} onStart={startFlow} />
           ))}
         </div>
       </div>

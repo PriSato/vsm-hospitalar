@@ -6,11 +6,17 @@ import { buildVersionFromSteps, defaultMetadata } from '@/lib/templates'
 interface VSMStore {
   projects: VSMProject[]
   activeProjectId: string | null
+  /** fluxos específicos que o usuário cadastrou dentro de cada template, ex:
+   * template "Cirurgia eletiva" → ["Cirurgia vascular", "Cirurgia oncológica"] */
+  templateVariants: Record<string, string[]>
 
   createProjectFromSteps: (name: string, sectorId: string, steps: string[]) => string
   createBlankProject: (name: string, sectorId: string) => string
   deleteProject: (id: string) => void
   selectProject: (id: string | null) => void
+
+  addTemplateVariant: (templateId: string, name: string) => void
+  removeTemplateVariant: (templateId: string, name: string) => void
 
   updateProcessBox: (projectId: string, boxId: string, patch: Partial<ProcessBox>) => void
   updateInventoryNode: (projectId: string, nodeId: string, patch: Partial<InventoryNode>) => void
@@ -33,6 +39,7 @@ export const useVSMStore = create<VSMStore>()(
     (set, get) => ({
       projects: [],
       activeProjectId: null,
+      templateVariants: {},
 
       createProjectFromSteps: (name, sectorId, steps) => {
         const id = `proj_${Math.random().toString(36).slice(2, 10)}`
@@ -69,6 +76,25 @@ export const useVSMStore = create<VSMStore>()(
       },
 
       selectProject: (id) => set({ activeProjectId: id }),
+
+      addTemplateVariant: (templateId, name) => {
+        const trimmed = name.trim()
+        if (!trimmed) return
+        set((state) => {
+          const existing = state.templateVariants[templateId] ?? []
+          if (existing.some((v) => v.toLowerCase() === trimmed.toLowerCase())) return state
+          return { templateVariants: { ...state.templateVariants, [templateId]: [...existing, trimmed] } }
+        })
+      },
+
+      removeTemplateVariant: (templateId, name) => {
+        set((state) => {
+          const existing = state.templateVariants[templateId] ?? []
+          return {
+            templateVariants: { ...state.templateVariants, [templateId]: existing.filter((v) => v !== name) },
+          }
+        })
+      },
 
       updateProcessBox: (projectId, boxId, patch) => {
         set((state) => ({
