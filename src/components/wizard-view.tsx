@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { SiteHeader } from '@/components/site-header'
 
 interface WizardStep {
   name: string
@@ -48,6 +49,9 @@ export function WizardView({ onDone, onCancel }: { onDone: (projectId: string) =
 
   return (
     <div className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-4 py-10">
+      <div className="mb-6 flex justify-center">
+        <SiteHeader />
+      </div>
       <Card>
         <CardHeader>
           <CardTitle>Modo guiado — passo {step} de 3</CardTitle>

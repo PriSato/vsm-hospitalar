@@ -9,6 +9,7 @@ import { InsightsPanel } from '@/components/canvas/insights-panel'
 import { ExportMenu } from '@/components/canvas/export-menu'
 import { GlossaryPanel } from '@/components/glossary-panel'
 import { Button } from '@/components/ui/button'
+import logo from '@/assets/logo-hmsvp.png'
 
 export function EditorView({ projectId, onBack }: { projectId: string; onBack: () => void }) {
   const project = useVSMStore((s) => s.projects.find((p) => p.id === projectId))
@@ -43,6 +44,8 @@ export function EditorView({ projectId, onBack }: { projectId: string; onBack: (
     <div className="flex h-screen flex-col">
       <header className="flex items-center justify-between border-b border-border bg-background px-4 py-2">
         <div className="flex items-center gap-3">
+          <img src={logo} alt="Hospital e Maternidade São Vicente de Paulo" className="h-7 w-auto" />
+          <div className="h-6 w-px bg-border" aria-hidden="true" />
           <Button variant="ghost" size="icon" onClick={onBack} aria-label="Voltar">
             <ArrowLeft className="h-4 w-4" />
           </Button>

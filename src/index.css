@@ -3,26 +3,29 @@
 @theme {
   --font-sans: "Segoe UI", system-ui, Roboto, sans-serif;
 
-  --color-border: #e5e4e7;
+  --color-border: #dbe1ea;
   --color-background: #ffffff;
-  --color-foreground: #1a1a1f;
-  --color-muted: #f4f4f6;
-  --color-muted-foreground: #6b6375;
-  --color-primary: #2563eb;
+  --color-foreground: #0f1b2d;
+  --color-muted: #f2f5f9;
+  --color-muted-foreground: #5b6b82;
+
+  /* azul-marinho da logo do Hospital e Maternidade São Vicente de Paulo (#002157) */
+  --color-primary: #002157;
+  --color-primary-hover: #0a3373;
   --color-primary-foreground: #ffffff;
-  --color-accent: #0d9488;
+  --color-accent: #b98a2e;
   --color-accent-foreground: #ffffff;
   --color-warning: #b45309;
   --color-warning-bg: #fef3c7;
   --color-danger: #b91c1c;
   --color-danger-bg: #fee2e2;
 
-  /* cores por setor hospitalar (reaproveitadas nos nós e swimlanes) */
-  --color-sector-1: #2563eb;
-  --color-sector-2: #7c3aed;
+  /* cores por setor hospitalar (reaproveitadas nos nós e swimlanes), em harmonia com o azul-marinho da marca */
+  --color-sector-1: #002157;
+  --color-sector-2: #0a5ca8;
   --color-sector-3: #0d9488;
-  --color-sector-4: #ea580c;
-  --color-sector-5: #db2777;
+  --color-sector-4: #b98a2e;
+  --color-sector-5: #7c3aed;
   --color-sector-6: #65a30d;
   --color-sector-7: #0891b2;
 }
